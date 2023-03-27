@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TravelApi.Models;
 
 namespace TravelApi.Controllers
+
 {
   [Route("api/[controller]")]
   [ApiController]
@@ -14,8 +15,17 @@ namespace TravelApi.Controllers
     {
       _db = db;
     }
+
+    // Pagination Code:
+    // [HttpGet]
+    // public IActionResult GetDestinationPage([FromQuery] DestinationParameters destinationParameters)
+    // {
+    //     Destination destination = _db.Destinations.GetDestinationPage(destinationParameters);
+    // //     _logger.LogInfo($"Return {locations.Count()} destinations from database.");
+    //     return Ok(destination);
+    // }
     
-    // GET: api/Destinations
+    // Learn How to Program GET: api/Destinations
     [HttpGet]
     public async Task<List<Destination>> Get(string country, string city, string review, int rating, string userName)
     {
@@ -60,7 +70,7 @@ namespace TravelApi.Controllers
         return NotFound();
       }
 
-      return destination;
+      return Ok(destination);
     }
 
     //POST api/destinations
