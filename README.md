@@ -77,9 +77,6 @@ _Requires console application such as Git Bash, Terminal, or PowerShell_
   "AllowedHosts": "*",
   "ConnectionStrings": {
     "DefaultConnection": "Server=localhost;Port=3306;database=ProjectName;uid=[YOUR-USERNAME-HERE];pwd=[YOUR-PASSWORD-HERE];"
-  },
-  "JwtConfig": {
-    "Secret" : "[YOUR-SECRET-HERE]"
   }
 }
 
@@ -89,9 +86,7 @@ _Requires console application such as Git Bash, Terminal, or PowerShell_
 
 8. Replace [YOUR-PASSWORD-HERE] with your MySQL password.
 
-9. Replace [YOUR-SECRET-HERE] with your random length 32 string.
-
-10. Run the command
+9. Run the command
 
     ```dotnet ef database update```
 
@@ -138,8 +133,9 @@ In order to utilize Swagger and interact with the API, you will first need to au
 * After you have inputted the necessary `Bearer Token`, click Authorize.
 * Once successfully authorized, you will be able to utilize the Swagger docs to interact with the API.
 
-### EndPoint Name
+### Desintations
 
+Get information about different global destinations.
 
 #### HTTP Request Structure
 ```
