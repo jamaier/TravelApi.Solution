@@ -14,11 +14,34 @@ namespace TravelApi.Controllers
     {
       _db = db;
     }
-
+    
+    // GET: api/Destinations
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Destination>>> Get()
+    public async Task<List<Destination>> Get(string country, string city, string review, int rating)
     {
-      return await _db.Destinations.ToListAsync();
+			IQueryable<Destination> query = _db.Destinations.AsQueryable();
+
+			if (country != null)
+			{
+				query = query.Where(entry => entry.Country == country);
+			}
+
+			if (city != null)
+			{
+				query = query.Where(entry => entry.City == city);
+			}
+
+			if (review != null)
+			{
+				query = query.Where(entry => entry.Review == review);
+			}
+
+			if (rating >= 0)
+			{
+				query = query.Where(entry => entry.Rating >= rating);
+			}
+
+      return await query.ToListAsync();
     }
 
     //Get: apiDestinations/1
@@ -39,59 +62,59 @@ namespace TravelApi.Controllers
     [HttpPost]
     public async Task<ActionResult<Destination>> Post(Destination destination)
     {
-        _db.Destinations.Add(destination);
-        await _db.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetDestination), new { id = destination.DestinationId }, destination);
+      _db.Destinations.Add(destination);
+      await _db.SaveChangesAsync();
+      return CreatedAtAction(nameof(GetDestination), new { id = destination.DestinationId }, destination);
     }
-    
-   //PUT: api/Destinations/5
-  	[HttpPut("{id}")]
- 	 public async Task<IActionResult> Put(int id, Destination destination)
-  	{
-        if (id != destination.DestinationId)
-        {
-            return BadRequest();
-        }
 
-        _db.Destinations.Update(destination);
-
-        try
-        {
-            await _db.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!DestinationExists(id))
-            {
-                return NotFound();
-            }
-            else
-            {
-                throw;
-            }
-        }
-        return NoContent();
-  }
-
-   private bool DestinationExists(int id)
-   {
-    return _db.Destinations.Any(location => location.DestinationId == id);
-   }
-
-   //DELETE: api/Destinations/5
-   [HttpDelete("{id}")]
-   public async Task<IActionResult> DeleteDestination(int id)
-   {
-    Destination destination = await _db.Destinations.FindAsync(id);
-    if (destination == null)
+    //PUT: api/Destinations/5
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, Destination destination)
     {
-        return NotFound();
+      if (id != destination.DestinationId)
+      {
+        return BadRequest();
+      }
+
+      _db.Destinations.Update(destination);
+
+      try
+      {
+        await _db.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if (!DestinationExists(id))
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+      return NoContent();
     }
 
-    _db.Destinations.Remove(destination);
-    await _db.SaveChangesAsync();
+    private bool DestinationExists(int id)
+    {
+      return _db.Destinations.Any(location => location.DestinationId == id);
+    }
 
-    return NoContent();
-   }
+    //DELETE: api/Destinations/5
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteDestination(int id)
+    {
+      Destination destination = await _db.Destinations.FindAsync(id);
+      if (destination == null)
+      {
+        return NotFound();
+      }
+
+      _db.Destinations.Remove(destination);
+      await _db.SaveChangesAsync();
+
+      return NoContent();
+    }
   }
 }
