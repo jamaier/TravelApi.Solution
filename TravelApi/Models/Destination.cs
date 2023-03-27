@@ -15,5 +15,7 @@ namespace TravelApi.Models
     [Required]
     [Range(0, 200, ErrorMessage = "Rating must be between 0 and 10.")]
     public int Rating { get; set; }
+    [Required]
+    public string UserName { get; set; }
   }
 }
