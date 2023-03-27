@@ -34,5 +34,14 @@ namespace TravelApi.Controllers
 
       return destination;
     }
+
+    //POST api/destinations
+    [HttpPost]
+    public async Task<ActionResult<Destination>> Post(Destination destination)
+    {
+        _db.Destinations.Add(destination);
+        await _db.SaveChangesAsync();
+        return CreatedAtAction(nameof(GetDestination), new { id = destination.DestinationId }, destination);
+    }
   }
 }
