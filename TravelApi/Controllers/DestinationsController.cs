@@ -17,44 +17,76 @@ namespace TravelApi.Controllers
     }
 
     // Pagination Code:
-    // [HttpGet]
-    // public IActionResult GetDestinationPage([FromQuery] DestinationParameters destinationParameters)
-    // {
-    //     Destination destination = _db.Destinations.GetDestinationPage(destinationParameters);
-    // //     _logger.LogInfo($"Return {locations.Count()} destinations from database.");
-    //     return Ok(destination);
-    // }
-    
-    // Learn How to Program GET: api/Destinations
-    [HttpGet]
-    public async Task<List<Destination>> Get(string country, string city, string review, int rating, string userName)
+    [HttpGet("page/{page}")]
+    public async Task<ActionResult<List<Destination>>> GetPages(int page)
     {
-			IQueryable<Destination> query = _db.Destinations.AsQueryable();
+        if(_db.Destinations == null)
+					return NotFound();
 
-			if (country != null)
-			{
-				query = query.Where(entry => entry.Country == country);
-			}
+				var pageResults = 3f;
+        var pageCount = Math.Ceiling(_db.Destinations.Count() / pageResults);
 
-			if (city != null)
-			{
-				query = query.Where(entry => entry.City == city);
-			}
+        var destinations = await _db.Destinations
+          .Skip((page - 1) * (int)pageResults)
+          .Take((int)pageResults)
+          .ToListAsync();
+        
+        var response = new DestinationResponse
+        {
+          Destinations = destinations,
+          CurrentPage = page,
+          Pages = (int)pageCount
+        };
+        return Ok(response);
+				}
+				// Destination destination = _model.PagedList(destinationParameters);
+    //     _logger.LogInfo($"Return {locations.Count()} destinations from database.");
+    // }
 
-			if (review != null)
-			{
-				query = query.Where(entry => entry.Review == review);
-			}
+    // Learn How to Program GET: api/Destinations
 
-			if (rating >= 0)
-			{
-				query = query.Where(entry => entry.Rating >= rating);
-			}
 
-            if (userName != null)
-			{
-				query = query.Where(entry => entry.UserName == userName);
-			}
+    // [HttpGet("playground")]
+    // public async Task<List<Destination>> Get(int groupSize)
+    // {
+    //   // IQueryable<Destination> query = _db.Destinations.AsQueryable();
+    //   // create an empty array of size groupSize called destinationArray
+    //   // foreach destinationArray.length, push data[i]
+
+
+    //   // return await query.ToListAsync();
+    // }
+
+    [HttpGet]
+    public async Task<List<Destination>> Get( string country, string city, string review, int rating, string userName)
+    {
+      
+      IQueryable<Destination> query = _db.Destinations.AsQueryable();
+
+      if (country != null)
+      {
+        query = query.Where(entry => entry.Country == country);
+      }
+
+      if (city != null)
+      {
+        query = query.Where(entry => entry.City == city);
+      }
+
+      if (review != null)
+      {
+        query = query.Where(entry => entry.Review == review);
+      }
+
+      if (rating >= 0)
+      {
+        query = query.Where(entry => entry.Rating >= rating);
+      }
+
+      if (userName != null)
+      {
+        query = query.Where(entry => entry.UserName == userName);
+      }
 
       return await query.ToListAsync();
     }
