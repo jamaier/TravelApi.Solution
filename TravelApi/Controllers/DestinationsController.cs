@@ -39,24 +39,7 @@ namespace TravelApi.Controllers
         };
         return Ok(response);
 				}
-				// Destination destination = _model.PagedList(destinationParameters);
-    //     _logger.LogInfo($"Return {locations.Count()} destinations from database.");
-    // }
-
-    // Learn How to Program GET: api/Destinations
-
-
-    // [HttpGet("playground")]
-    // public async Task<List<Destination>> Get(int groupSize)
-    // {
-    //   // IQueryable<Destination> query = _db.Destinations.AsQueryable();
-    //   // create an empty array of size groupSize called destinationArray
-    //   // foreach destinationArray.length, push data[i]
-
-
-    //   // return await query.ToListAsync();
-    // }
-
+	
     [HttpGet]
     public async Task<List<Destination>> Get( string country, string city, string review, int rating, string userName)
     {

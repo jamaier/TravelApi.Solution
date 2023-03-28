@@ -6,12 +6,6 @@ namespace TravelApi.Models
 {
   public class Destination
   {
-    // public PagedList<Destination> GetDestinations(DestinationParameters destinationParameters)
-    // {
-    //   return PagedList<Destination>.ToPagedList(FindAll(),
-    //                                             destinationParameters.PageNumber,
-    //                                             destinationParameters.PageSize);
-    // }
     public int DestinationId { get; set; }
     [Required]
     [StringLength(20)]
@@ -25,6 +19,5 @@ namespace TravelApi.Models
     public int Rating { get; set; }
     [Required]
     public string UserName { get; set; }
-    // IQueryable<T> FindAll();
   }
 }

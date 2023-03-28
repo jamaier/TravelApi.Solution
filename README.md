@@ -30,6 +30,8 @@ There are custom endpoints for some of these user stories.
 
 * A user can look up random destinations just for fun.
 
+* A user can access the API endpoint with a query parameter that specifies the page that should be returned.
+
 ## Setup/Installation Requirements
 _Requires console application such as Git Bash, Terminal, or PowerShell_
 
@@ -144,6 +146,7 @@ GET http://localhost:5000/api/Destinations/{id}
 POST http://localhost:5000/api/Destinations/
 PUT http://localhost:5000/api/Destinations/{id}
 DELETE http://localhost:5000/api/Destinations/{id}
+GET http://localhost:5000/api/Destinations/page/{page}
 ```
 * To utilize the POST request and create a new instance of a destination, the following information is required.
 ```
