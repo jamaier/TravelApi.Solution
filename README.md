@@ -11,7 +11,6 @@
 * _MVC_
 * _Entity Framework_
 * _Identity_
-* _JwtBearer_
 * _Swagger_
 
 ## Description
@@ -78,7 +77,7 @@ _Requires console application such as Git Bash, Terminal, or PowerShell_
   },
   "AllowedHosts": "*",
   "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost;Port=3306;database=ProjectName;uid=[YOUR-USERNAME-HERE];pwd=[YOUR-PASSWORD-HERE];"
+    "DefaultConnection": "Server=localhost;Port=3306;database=travelapi;uid=[YOUR-USERNAME-HERE];pwd=[YOUR-PASSWORD-HERE];"
   }
 }
 
@@ -112,41 +111,21 @@ This program was built using _`Microsoft .NET SDK 6.0`_, and may not be compatib
 ## API Documentation
 Explore the API endpoints in Postman or a browser. You will not be able to utilize authentication in a browser.
 
-### Using the JSON Web Token
-In order to be authorized to use the POST, PUT, DELETE functionality of the API, please authenticate yourself through Postman.
-* Open Postman and create a POST request using the URL: `http://localhost:5000/api/users/authmanagement/register`
-* Add the following query to the request as raw data in the Body tab:
-```
-{
-    "name": "Test User",
-    "email": "Test@Test.com",
-    "password": "epicodus"
-}
-```
-* The token will be generated in the response. Copy and paste it as the Token paramenter in the Authorization tab after selecting "Bearer Token" from the dropdown menu.
-
 ###  Swagger Documentation 
-To view the Swagger documentation for the TravelApi, launch the project using `dotnet run` using Terminal or Powershell, then input the following URL into your browser: `http://localhost:5000/swagger`
+To view the Swagger documentation for the TravelApi, launch the project using `dotnet run` using Terminal or Powershell, then input the following URL into your browser: `https://localhost:5001/swagger/index.html`
 
-###  Swagger Authorization 
-In order to utilize Swagger and interact with the API, you will first need to authenticate yourself through Postman. 
-* Once you have completed authorization and have obtained your Bearer Token, navigate back to `http://localhost:5000/swagger` then click on the `authorize` button in the top right corner.
-* From there, you must type in `Bearer` followed by your `Token`.
-* After you have inputted the necessary `Bearer Token`, click Authorize.
-* Once successfully authorized, you will be able to utilize the Swagger docs to interact with the API.
-
-### Desintations
+### Destinations
 
 Get information about different global destinations.
 
 #### HTTP Request Structure
 ```
-GET http://localhost:5000/api/Destinations/
-GET http://localhost:5000/api/Destinations/{id}
-POST http://localhost:5000/api/Destinations/
-PUT http://localhost:5000/api/Destinations/{id}
-DELETE http://localhost:5000/api/Destinations/{id}
-GET http://localhost:5000/api/Destinations/page/{page}
+GET https://localhost:5001/api/Destinations/
+GET https://localhost:5001/api/Destinations/{id}
+POST https://localhost:5001/api/Destinations/
+PUT https://localhost:5001/api/Destinations/{id}
+DELETE https://localhost:5001/api/Destinations/{id}
+GET https://localhost:5001/api/Destinations/page/{page}
 ```
 * To utilize the POST request and create a new instance of a destination, the following information is required.
 ```
@@ -162,7 +141,7 @@ GET http://localhost:5000/api/Destinations/page/{page}
 
 #### Example Query
 ```
-https://localhost:5000/api/Destinations/1
+https://localhost:5001/api/Destinations/1
 ```
 #### Sample JSON Response
 ```
