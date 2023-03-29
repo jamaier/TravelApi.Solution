@@ -20,30 +20,30 @@ namespace TravelApi.Controllers
     [HttpGet("page/{page}")]
     public async Task<ActionResult<List<Destination>>> GetPages(int page)
     {
-        if(_db.Destinations == null)
-					return NotFound();
+      if (_db.Destinations == null)
+        return NotFound();
 
-				var pageResults = 3f;
-        var pageCount = Math.Ceiling(_db.Destinations.Count() / pageResults);
+      var pageResults = 3f;
+      var pageCount = Math.Ceiling(_db.Destinations.Count() / pageResults);
 
-        var destinations = await _db.Destinations
-          .Skip((page - 1) * (int)pageResults)
-          .Take((int)pageResults)
-          .ToListAsync();
-        
-        var response = new DestinationResponse
-        {
-          Destinations = destinations,
-          CurrentPage = page,
-          Pages = (int)pageCount
-        };
-        return Ok(response);
-				}
-	
+      var destinations = await _db.Destinations
+        .Skip((page - 1) * (int)pageResults)
+        .Take((int)pageResults)
+        .ToListAsync();
+
+      var response = new DestinationResponse
+      {
+        Destinations = destinations,
+        CurrentPage = page,
+        Pages = (int)pageCount
+      };
+      return Ok(response);
+    }
+
     [HttpGet]
-    public async Task<List<Destination>> Get( string country, string city, string review, int rating, string userName)
+    public async Task<List<Destination>> Get(string country, string city, string review, int rating, string userName)
     {
-      
+
       IQueryable<Destination> query = _db.Destinations.AsQueryable();
 
       if (country != null)
