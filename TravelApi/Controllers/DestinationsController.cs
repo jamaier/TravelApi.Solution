@@ -18,24 +18,27 @@ namespace TravelApi.Controllers
 
     // Pagination Code:
     [HttpGet("page/{page}")]
-    public async Task<ActionResult<List<Destination>>> GetPages(int page)
+    public async Task<ActionResult<List<Destination>>> GetPages(int page, int pageSize = 6)
     {
       if (_db.Destinations == null)
         return NotFound();
 
-      var pageResults = 3f;
-      var pageCount = Math.Ceiling(_db.Destinations.Count() / pageResults);
+      int pageCount = _db.Destinations.Count();
 
       var destinations = await _db.Destinations
-        .Skip((page - 1) * (int)pageResults)
-        .Take((int)pageResults)
+        .Skip((page - 1) * pageSize)
+        .Take(pageSize)
         .ToListAsync();
 
       var response = new DestinationResponse
       {
         Destinations = destinations,
+        //page number inside the url
         CurrentPage = page,
-        Pages = (int)pageCount
+        //the amount of destinations returned from our database
+        Pages = pageCount,
+        //amnt of items on the page
+        PageSize = pageSize
       };
       return Ok(response);
     }
